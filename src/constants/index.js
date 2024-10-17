@@ -1,4 +1,4 @@
-const cities = [
+export const cities = [
     "New York",
     "Tokyo",
     "Paris",
@@ -22,10 +22,6 @@ const cities = [
     "Singapore"
   ];
   
-export const RandomCity = () => {
-      const randomIndex = Math.floor(Math.random() * cities.length);
-      return cities[randomIndex];
-  }
 
 export const API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
 
