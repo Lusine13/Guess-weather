@@ -1,12 +1,10 @@
-import GuessingWeather from "./components/GuessWeather";
-import Result from "./components/Result";
+import GuessingWeather from "./GuessWeather";
 
 
 function App() {
   return (
     <div className="App">
-      <GuessingWeather />
-      <Result />      
+      <GuessingWeather />           
     </div>
   );
 }
