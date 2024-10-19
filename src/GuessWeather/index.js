@@ -3,6 +3,11 @@ import { Input, Button, Form, message, Modal } from 'antd';
 import { API_URL, API_KEY, cities } from '../constants';
 import './index.css';
 
+import correctSound from '../assets/audio/correct.mp3';
+import wrongSound from '../assets/audio/wrong.mp3';
+import winSound from '../assets/audio/win.mp3';
+import loseSound from '../assets/audio/lose.mp3';
+
 const GuessingWeather = () => {
     const [ form ] = Form.useForm();
     const [ weatherData, setWeatherData ] = useState(null);
@@ -31,6 +36,11 @@ const GuessingWeather = () => {
         setRandomCity(city);
     };
 
+    const playSound = (sound) => {
+        const audio = new Audio(sound);
+        audio.play();
+    };
+
     const onFinish = async () => {
         if (round >= maxRounds) {
             setIsModalVisible(true);            
@@ -52,8 +62,10 @@ const GuessingWeather = () => {
 
             if (isCorrect) {
                 message.success("Correct guess!");
+                playSound(correctSound);
             } else {
                 message.error("Wrong guess!");
+                playSound(wrongSound);
             }
 
             setResults((prevResults) => [
@@ -70,6 +82,23 @@ const GuessingWeather = () => {
             setLoading(false);
         }
     };
+
+    const handleGameOver = () => {
+        const correctGuesses = results.filter(result => result.correct).length;
+        if (correctGuesses > 4) {
+            playSound(winSound);
+        } else {
+            playSound(loseSound);
+        }
+    };
+
+    useEffect(() => {
+        if (round >= maxRounds) {
+            handleGameOver();
+            setIsModalVisible(true);
+        }
+    }, [round]);
+    
     return (
     <div className='container'>    
      <Form layout="vertical" form={form} onFinish={onFinish}>  
