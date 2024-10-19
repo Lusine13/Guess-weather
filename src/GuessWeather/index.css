@@ -5,17 +5,17 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color:#f0f2f5;
 }
 
 .random_city {
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .guessedNumbers {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .checkingBtn {
@@ -50,6 +50,9 @@
     height: 130px;
     text-align: center;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .correct {

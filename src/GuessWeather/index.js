@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button, Form, message } from 'antd';
+import { Input, Button, Form, message, Modal } from 'antd';
 import { API_URL, API_KEY, cities } from '../constants';
 import './index.css';
 
@@ -11,6 +11,7 @@ const GuessingWeather = () => {
     const [ guessedTemperature, setGuessedTemperature ] = useState('');
     const [ results, setResults ] = useState([]);
     const [ usedCities, setUsedCities ] = useState(new Set());
+    const [ isModalVisible, setIsModalVisible ] = useState(false);
     const [ round, setRound ] = useState(0);
     const maxRounds = 5;
 
@@ -32,7 +33,7 @@ const GuessingWeather = () => {
 
     const onFinish = async () => {
         if (round >= maxRounds) {
-            message.info("Game over!");
+            setIsModalVisible(true);            
             return;
         }
         const FETCH_URL = `${API_URL}${randomCity}&appid=${API_KEY}&units=metric`; 
@@ -52,7 +53,7 @@ const GuessingWeather = () => {
             if (isCorrect) {
                 message.success("Correct guess!");
             } else {
-                message.error("Wrong guess. Try again!");
+                message.error("Wrong guess!");
             }
 
             setResults((prevResults) => [
@@ -98,10 +99,16 @@ const GuessingWeather = () => {
         </div>
     ))}
     </div>
-            {round >= maxRounds && <h3>
-        Game over! You {results.filter(result => result.correct).length > 4 ? 'win!' : 'lose.'}
-    </h3>}
-        </div>   
+    <Modal
+                visible={isModalVisible}
+                onOk={() => setIsModalVisible(false)}
+                onCancel={() => setIsModalVisible(false)}
+            >
+                <h3>
+                    Game over! You {results.filter(result => result.correct).length > 4 ? 'win!' : 'lose.'}
+                </h3>
+     </Modal>
+  </div>   
     )
 };
 
