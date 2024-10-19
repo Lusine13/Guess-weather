@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Button, Form, message } from 'antd';
 import { API_URL, API_KEY, cities } from '../constants';
-
+import './index.css';
 
 const GuessingWeather = () => {
     const [ form ] = Form.useForm();
@@ -10,6 +10,7 @@ const GuessingWeather = () => {
     const [ randomCity, setRandomCity ] = useState('');
     const [ guessedTemperature, setGuessedTemperature ] = useState('');
     const [ results, setResults ] = useState([]);
+    const [ usedCities, setUsedCities ] = useState(new Set());
     const [ round, setRound ] = useState(0);
     const maxRounds = 5;
 
@@ -17,8 +18,15 @@ const GuessingWeather = () => {
         fetchRandomCity();
     }, []);
 
-    const fetchRandomCity = async () => {
-        const city = cities[Math.floor(Math.random() * cities.length)];
+    const fetchRandomCity = () => {
+        if (round >= maxRounds) return;
+
+        let city;
+        do {
+            city = cities[Math.floor(Math.random() * cities.length)];
+        } while (usedCities.has(city));
+
+        setUsedCities(prev => new Set(prev).add(city));
         setRandomCity(city);
     };
 
@@ -62,7 +70,7 @@ const GuessingWeather = () => {
         }
     };
     return (
-    <div>    
+    <div className='container'>    
      <Form layout="vertical" form={form} onFinish={onFinish}>  
       <Form.Item>  
       <Input type='text' value={randomCity} readOnly className='random_city' />
@@ -81,18 +89,18 @@ const GuessingWeather = () => {
                 </div>
             )}
              </Form>
-            <div className="results">
-                <h3>Your Guesses:</h3>
-                {results.map((result, index) => (
-                    <div key={index}>
-                        <p>
-                            City: {result.city}, Guessed: {result.guessed}°C, Actual: {result.actual}°C, 
-                            {result.correct ? " Correct!" : " Incorrect."}
-                        </p>
-                    </div>
-                ))}
-              </div>
-            {round >= maxRounds && <h3>Game Over! You completed {maxRounds} rounds.</h3>}
+    <div className="results">    
+        {results.map((result, index) => (
+        <div key={index} className={`result-box ${result.correct ? 'correct' : 'incorrect'}`}>
+            <div>City: {result.city}</div>
+            <div>Guessed: {result.guessed}°C</div>
+            <div>Actual: {result.actual}°C</div>
+        </div>
+    ))}
+    </div>
+            {round >= maxRounds && <h3>
+        Game over! You {results.filter(result => result.correct).length > 4 ? 'win!' : 'lose.'}
+    </h3>}
         </div>   
     )
 };

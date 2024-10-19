@@ -1,0 +1,61 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.random_city {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.guessedNumbers {
+    margin-bottom: 10px;
+}
+
+.checkingBtn {
+    width: 100%;
+}
+
+.weather_result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 30px;
+    padding: 5px;
+    border-top: 1px solid #ccc;
+}
+
+.results p {
+    margin: 5px 0;
+}
+
+.result-box {   
+    padding: 5px; 
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    width: 130px;
+    height: 130px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.correct {
+    background-color: rgb(26, 71, 26);
+}
+
+.incorrect {
+    background-color: rgb(129, 22, 22);
+}
