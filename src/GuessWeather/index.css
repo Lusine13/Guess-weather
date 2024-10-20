@@ -1,6 +1,14 @@
+body {
+    background-image: url('../Imiges/cities.jpg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    margin: 0;
+    height: 100vh;
+}
 .container {
     max-width: 700px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -22,7 +30,7 @@
     width: 100%;
 }
 
-.weather_result {
+.weather_result {   
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
@@ -61,4 +69,20 @@
 
 .incorrect {
     background-color: rgb(129, 22, 22);
+}
+@media (max-width: 750px) {
+    .container {
+        padding: 15px;
+    }
+
+    .results {
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px;
+    }
+
+    .result-box {
+        height: 100px; 
+        text-align: center; 
+    }
 }

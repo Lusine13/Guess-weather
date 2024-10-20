@@ -46,6 +46,11 @@ const GuessingWeather = () => {
             setIsModalVisible(true);            
             return;
         }
+        const guessedTemp = parseFloat(guessedTemperature);
+    if (isNaN(guessedTemp) || guessedTemperature.trim() === '') {
+        message.error("Please enter a valid temperature.");
+        return;
+    }
         const FETCH_URL = `${API_URL}${randomCity}&appid=${API_KEY}&units=metric`; 
 
         setLoading(true);
@@ -85,19 +90,28 @@ const GuessingWeather = () => {
 
     const handleGameOver = () => {
         const correctGuesses = results.filter(result => result.correct).length;
+        setIsModalVisible(true);
         if (correctGuesses > 4) {
             playSound(winSound);
         } else {
             playSound(loseSound);
         }
     };
-
+    
     useEffect(() => {
         if (round >= maxRounds) {
-            handleGameOver();
-            setIsModalVisible(true);
+            handleGameOver();           
         }
     }, [round]);
+
+    const handleTryAgain = () => {
+        setRound(0);
+        setGuessedTemperature('');
+        setResults([]);
+        setUsedCities(new Set()); 
+        fetchRandomCity();
+        setIsModalVisible(false);
+    };
     
     return (
     <div className='container'>    
@@ -129,9 +143,14 @@ const GuessingWeather = () => {
     ))}
     </div>
     <Modal
-                visible={isModalVisible}
+                open={isModalVisible}
                 onOk={() => setIsModalVisible(false)}
                 onCancel={() => setIsModalVisible(false)}
+                footer={[
+                    <Button key="tryAgain" onClick={handleTryAgain}>
+                        Try Again
+                    </Button>,
+                ]}
             >
                 <h3>
                     Game over! You {results.filter(result => result.correct).length > 4 ? 'win!' : 'lose.'}
