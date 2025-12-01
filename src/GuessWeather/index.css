@@ -1,19 +1,50 @@
 body {
-    background-image: url('../Imiges/cities.jpg');
+    background-image: url('../Images/cities.jpg');
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat; 
     margin: 0;
     height: 100vh;
 }
+
 .container {
     max-width: 700px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color:#f0f2f5;
+    background-color: rgba(240, 242, 245, 0.95);
+    border: 1px solid #ccc;
+}
+
+.game-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: #1890ff;
+}
+
+.game-rules {
+    margin-bottom: 16px;
+}
+
+.game-rules .ant-collapse-content {
+    background-color: rgba(213, 219, 222, 0.9);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #91d5ff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.game-rules .ant-collapse-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #096dd9;
+}
+
+.game-rules p {
+    margin: 6px 0;
+    line-height: 1.5;
 }
 
 .random_city {
@@ -39,14 +70,13 @@ body {
 .results {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 30px;
-    padding: 5px;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
     border-top: 1px solid #ccc;
-}
-
-.results p {
-    margin: 5px 0;
+    padding-top: 10px;
+    max-height: 280px; 
+    overflow-y: hidden; 
 }
 
 .result-box {   
@@ -55,34 +85,29 @@ body {
     color: white;
     font-weight: bold;
     width: 130px;
-    height: 130px;
+    height: 100px;
     text-align: center;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .correct {
-    background-color: rgb(26, 71, 26);
+    background-color: rgb(61, 79, 61);
 }
 
 .incorrect {
-    background-color: rgb(129, 22, 22);
+    background-color: rgb(139, 62, 62);
 }
+
 @media (max-width: 750px) {
     .container {
         padding: 15px;
     }
 
-    .results {
-        display: grid; 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 10px;
-    }
-
     .result-box {
+        width: 45%;
         height: 100px; 
-        text-align: center; 
     }
 }
